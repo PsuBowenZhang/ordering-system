@@ -1,0 +1,34 @@
+{% extends 'base_index.html' %}
+{% block content %}
+<!-- Breadcrumb Section -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb mt-2">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+  </ol>
+</nav>
+
+<!-- Product Section -->
+<div class="row">
+  <!-- Display each menu item -->
+  {% for item in menu_items %}
+  <div class="col-md-3 mb-2">
+    <div class="card" data-item-id="{{ item.ItemID }}">
+      <img src="{{ ('/' + item.ItemImage) if item.ItemImage else url_for('static', filename='images/150.png') }}"
+        class="card-img-top" alt="{{ item.ItemName }}">
+      <div class="card-body">
+        <h4 class="card-title">{{ item.ItemName }}</h4>
+        <p class="card-text h5 text-info">Category: {{ item.CateName }}</p>
+        <p class="card-text">{{ item.Description[:60] }}{% if item.Description|length > 60 %}...{% endif %}</p>
+        <p class="card-text h5 text-danger">${{ item.Price }}</p>
+        <p class="card-text">Stock: <strong>{{ item.Stock }}</strong></p>
+        <p class="card-text h5">Hot Score: <strong>{{ item.Score }}</strong></p>
+        <p class="card-text">Total Sale Quantity: <strong>{{ item.TotalQuantity }}</strong></p>
+        <button class="btn btn-primary add-cart" data-item-id="{{ item.ItemID }}">Add Cart</button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base_index.html' %} {% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/customer/"> Dashboard </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="/customer/orders"> Orders </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Orders List</h1>
+      </div>
+      <div class="mb-2 text-right">
+        <span class="h5">Tips: </span><span class="h6 mr-2">Discount percentage and Tax percentage may be <span class="text-danger">modified</span>
+          , subject to the amount in  <span class="text-danger">Detail</span>.</span>
+      </div>
+      <div class="table-responsive table-bordered table-hover">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>OrderTime</th>
+              <th>OrderAmount</th>
+              <th>Discount</th>
+              <th>Tax</th>
+              <th>TipAmount</th>
+              <th>PaidAmount</th>
+              <th>Status</th>
+              <th>Operation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr data-order-id="{{ order.OrderID }}" class="
+                  {% if order.OrderStatus == 'Waiting' %}
+                      text-danger
+                  {% elif order.OrderStatus == 'Confirmed' %}
+                      text-info
+                  {% elif order.OrderStatus == 'Completed' %}
+                      text-primary
+                  {% endif %}
+              ">
+              <td>{{ loop.index }}</td>
+              <td>{{ order.OrderTime }}</td>
+              <td>${{ order.OrderAmount }}</td>
+              <td>{{ order.DiscountName }}({{ order.DiscountPercent }}%)</td>
+              <td>{{ order.TaxName }}({{ order.TaxPercent }}%)</td>
+              <td>
+                {% if order.TipAmount is none %}
+                    No
+                {% else %}
+                    ${{ order.TipAmount }}
+                {% endif %}
+              </td>
+              <td>
+                {% if order.BillTotalAmount is none %}
+                No Paid
+                {% else %}
+                ${{ order.BillTotalAmount }}
+                {% endif %}
+              </td>
+              <td>{{ order.OrderStatus }}</td>
+              <td>
+                <a href="/customer/orders/{{ order.OrderID }}" type="button" class="btn btn-sm btn-info">
+                  Detail
+                </a>
+                {% if order.OrderStatus == 'Completed' %}
+                <button class="btn btn-sm btn-success pay-button" data-order-id="{{ order.OrderID }}"
+                  data-order-amount="{{ order.OrderAmount }}">Pay</button>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal for Payment -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paymentModalLabel">Pay for Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="tip">Enter Tip Amount:</label>
+        <input id="tip" type="number" class="form-control" min="0" placeholder="Enter tip amount (minimum 0)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmPayment">Confirm Payment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    // Handle Pay button click
+    $('.pay-button').on('click', function () {
+      const orderId = $(this).data('order-id');
+      $('#paymentModal').data('order-id', orderId); // Set the order ID in the modal
+      $('#paymentModal').modal('show');
+    });
+
+    // Handle Confirm Payment button click
+    $('#confirmPayment').on('click', function () {
+      const orderId = $('#paymentModal').data('order-id');
+      const tipAmount = parseFloat($('#tip').val()) || 0;
+
+      if (tipAmount < 0) {
+        showToast("Tip amount must be greater than or equal to 0");
+        return;
+      }
+
+      // Send payment information via AJAX
+      $.ajax({
+        url: '/customer/orders/pay',
+        method: 'POST',
+        data: {
+          order_id: orderId,
+          tip_amount: tipAmount
+        },
+        success: function (response) {
+          showToast(response.message);
+          $('#paymentModal').modal('hide');
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        },
+        error: function (xhr) {
+          showToast(xhr.responseJSON.message);
+        }
+      });
+    });
+
+
+  });
+
+
+</script>
+{% endblock %}

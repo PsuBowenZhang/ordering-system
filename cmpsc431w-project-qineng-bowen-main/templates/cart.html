@@ -1,0 +1,104 @@
+{% extends 'base_index.html' %}
+{% block content %}
+<!-- Breadcrumb Section -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb mt-2">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+  </ol>
+</nav>
+
+<!-- Product Section -->
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">Product List</h6>
+  {% if cart_items %}
+  {% for item in cart_items %}
+  <div class="media text-muted pt-3">
+    <img src="{{ item.item_image or url_for('static', filename='images/150.png') }}" width="50" height="50"
+      alt="{{ item.item_name }}">
+    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+      <div class="d-flex justify-content-between align-items-center w-200">
+        <strong class="text-gray-dark col-md-2 col-sm-3">{{ item.item_name }}</strong>
+        <input type="number" class="quantity-input col-md-2 col-sm-3" data-item-id="{{ item.item_id }}" value="{{ item.quantity }}"
+          min="1" step="1">
+        <span class="text-info h5 ">${{ item.subtotal }}</span>
+        <a href="#" type="button" class="btn btn-sm btn-danger remove-cart" data-item-id="{{ item.item_id }}">Remove</a>
+      </div>
+      <span class="d-block col-md-2 col-sm-3">${{ item.price }}</span>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="text-center h4">Your cart is empty.</p>
+  {% endif %}
+
+  {% if cart_items %}
+  <span class="d-block text-right h4 ml-3">
+    ${{ total }}
+  </span>
+  <small class="d-block text-center mt-3">
+    {% if current_user.is_authenticated %}
+    <a onclick="return confirm('Are you sure you want to place an order?')" href="/customer/cart/checkout" type="button" class="btn btn-sm btn-primary">Check Out</a>
+    {% else %}
+    <a onclick="return confirm('Are you sure you want to place an order?')" href="/login" type="button" class="btn btn-sm btn-primary">Login To Check Out</a>
+    {% endif %}
+  </small>
+  {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    $(document).on('change', '.quantity-input', function () {
+      const itemId = $(this).data('item-id');
+      const newQuantity = parseInt($(this).val());
+      if (confirm("Are you sure you want to edit quantity of this product?")) {
+        $.ajax({
+          url: '/cart/update',
+          type: 'POST',
+          data: { ItemID: itemId, Quantity: newQuantity },
+          success: function (response) {
+            showToast(response.message);
+            setTimeout(function () {
+              location.reload();
+            }, 2000);
+          },
+          error: function (xhr) {
+            showToast(xhr.responseJSON.message);
+            setTimeout(function () {
+              location.reload();
+            }, 2000);
+          }
+        });
+      }
+    });
+
+    $(document).on('click', '.remove-cart', function () {
+      const itemId = $(this).data('item-id');
+      if (confirm("Are you sure you want to remove this product?")) {
+        $.ajax({
+          url: '/cart/remove',
+          type: 'POST',
+          data: { ItemID: itemId },
+          success: function (response) {
+            showToast(response.message);
+            setTimeout(function () {
+              location.reload();
+            }, 2000);
+          },
+          error: function (xhr) {
+            alert(xhr.responseJSON.message);
+          }
+        });
+      }
+    });
+
+
+  });
+
+</script>
+{% endblock %}

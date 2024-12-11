@@ -1,0 +1,55 @@
+{% extends 'base_index.html' %}
+{% block content %}
+<!-- Hero Section -->
+<div class="jumbotron text-center bg-info text-white mt-2 mb-3">
+    <h1>Welcome to Our Restaurant</h1>
+    <p>Enjoy the best dining experience!</p>
+    <p>You can purchase in advance only if you log in system (please register first if you don’t have an account)</p>
+</div>
+
+<!-- Product Section -->
+<div class="row">
+    <!-- Display each menu item -->
+    {% for item in menu_items %}
+    <div class="col-md-3 mb-2">
+        <div class="card">
+            <img src="{{ item.ItemImage or url_for('static', filename='images/150.png') }}" class="card-img-top"
+                alt="{{ item.ItemName }}">
+            <div class="card-body">
+                <h4 class="card-title">{{ item.ItemName }}</h4>
+                <p class="card-text h5 text-info">Category: {{ item.CateName }}</p>
+                <p class="card-text">{{ item.Description[:60] }}{% if item.Description|length > 60 %}...{% endif %}</p>
+                <p class="card-text h5 text-danger">${{ item.Price }}</p>
+                {% if item.Stock > 0 %}
+                <p class="card-text">Stock: <strong>{{ item.Stock }}</strong></p>
+                <button class="btn btn-primary add-cart" data-item-id="{{ item.ItemID }}">Add Cart</button>
+                {% else %}
+                <p class="card-text text-danger h5"><strong>Out of Stock</strong></p>
+                <button class="btn btn-secondary add-cart" disabled>Out of Stock</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Links Section -->
+<div class="container my-4 mt-3">
+    <h5>Related Links</h5>
+    <ul class="list-inline h6">
+        <li class="list-inline-item separator"><a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/"
+                target="_blank">Bootstrap 4 Tutorials</a></li>
+        <li class="list-inline-item separator"><a href="https://www.python.org/doc/" target="_blank">Python
+                Tutorials</a></li>
+        <li class="list-inline-item separator"><a href="https://flask.palletsprojects.com/en/2.3.x/"
+                target="_blank">Flask Tutorials</a></li>
+        <li class="list-inline-item separator"><a href="https://www.iconfont.cn/" target="_blank">Alibaba Icon
+                Library</a></li>
+        <li class="list-inline-item separator"><a href="https://tutorial.helloflask.com/" target="_blank">HelloFlask
+                Tutorials</a></li>
+        <li class="list-inline-item"><a href="https://stackoverflow.com/" target="_blank">Stack Overflow</a></li>
+    </ul>
+</div>
+
+
+{% endblock %}

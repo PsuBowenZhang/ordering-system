@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is a restaurant that focuses on online ordering">
+    <meta name="keywords" content="Restaurant, Order, Food">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.svg') }}">
+    <title>Restaurant - {{ title }}</title>
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+
+<body>
+<!-- Header Section -->
+<header class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light container">
+        <a class="navbar-brand" href="/"><img width="50px" height="50px" alt="LOGO"
+                                              src="{{ url_for('static', filename='images/logo.svg') }}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" style="font-size: 20px">
+            <a class="navbar-brand" href="/hot">Hot Sales</a>
+            <ul class="navbar-nav mr-auto">
+                {% for category in categories %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#  bnm " id="menu{{ category.CateID }}" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ category.CateName }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="menu{{ category.CateID }}">
+                        {% for subcategory in category.subcategories %}
+                        <a class="dropdown-item" href="/category/{{ subcategory.CateID }}">{{ subcategory.CateName
+                            }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div>
+                <a href="/cart" type="button">
+                    <img src="{{ url_for('static', filename='images/cart.svg') }}" width="30px" height="30px">
+                    <span class="badge badge-light mr-4" id="cart_count"></span>
+                </a>
+                {% if current_user.is_authenticated %}
+                <!-- User is logged in -->
+                <a class="btn btn-outline-primary mr-2" id="profile-btn" href="/{{ current_user.role | lower }}">{{
+                    current_user.username }}</a>
+                <a class="btn btn-outline-danger" id="logout-btn" href="/logout">Logout</a>
+                {% else %}
+                <!-- User is not logged in -->
+                <a class="btn btn-outline-primary mr-2" id="reg-btn" href="/register">Register</a>
+                <a class="btn btn-outline-success" id="login-btn" href="/login">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid" style="min-height: 700px" id="main">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Footer Section -->
+<footer class="text-center py-4 bg-light">
+    <p class="mb-0">&copy; 2024 All Rights Reserved.</p>
+    <small>If you have any questions, please contact the administrator!</small>
+</footer>
+
+<!-- Toast -->
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="myToast">
+    <div class="toast-header">
+        <img width="40px" height="40px" alt="LOGO" src="{{ url_for('static', filename='images/logo.svg') }}"
+             class="rounded mr-2">
+        <strong class="mr-auto">System Notification</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+
+
+<!-- Bootstrap 4 JS and dependencies -->
+<script src="{{ url_for('static', filename='js/jquery-2.2.4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+<script>
+    {% with messages = get_flashed_messages(with_categories = true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    $(".toast-body").text("{{ message }}");
+    $(".toast").toast({ delay: 5000 });
+    $(".toast").toast("show");
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    // Define a function to fetch the cart count
+    function updateCartCount() {
+        $.ajax({
+            url: "/cart/count",
+            type: "GET",
+            success: function (response) {
+                // Update the badge with the new cart count
+                $("#cart_count").text(response.product_count);
+            },
+            error: function (xhr, status, error) {
+                console.error("Failed to fetch cart count:", error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        // Call the function every 10 seconds
+        // setInterval(updateCartCount, 10000); // 10 seconds
+
+        // Call it once immediately to update the count on page load
+        updateCartCount();
+    });
+</script>
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.add-cart').on('click', function () {
+            const itemID = $(this).data('item-id');
+            const quantity = 1;
+
+            $.ajax({
+                url: '/cart/add',
+                method: 'POST',
+                data: { ItemID: itemID, Quantity: quantity },
+                success: function (data) {
+                    showToast(data.message);
+                    if (data.cart) {
+                        console.log("Cart updated:", data.cart);
+                    }
+                    setTimeout(function () {
+                        updateCartCount();
+                    }, 1000);
+                },
+                error: function (xhr) {
+                    const errorMessage = xhr.responseJSON?.message || 'An error occurred.';
+                    showToast(errorMessage);
+                    console.error('Error:', errorMessage);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+</body>
+
+</html>

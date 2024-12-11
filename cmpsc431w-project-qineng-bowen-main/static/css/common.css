@@ -1,0 +1,61 @@
+/* Ensure the navigation bar text color has enough contrast with the background color */
+.navbar-light .navbar-nav .nav-link {
+    color: #000000;
+    /* Dark text */
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #0056b3;
+    /* Darken the color when hovering */
+}
+
+/* Adjust the button color */
+.btn-outline-primary {
+    border-color: #0056b3;
+    background-color: #ffffff;
+    /* Ensure the background is light enough */
+}
+
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+    background-color: #ffffff;
+}
+
+.btn-outline-success:hover .btn-outline-primary:hover .btn-success:hover .btn-primary:hover {
+    color: white;
+    font-size: larger;
+}
+
+.separator {
+    position: relative;
+}
+
+.separator::after {
+    content: "|";
+    position: absolute;
+    right: -10px;
+    color: #ccc;
+}
+
+.separator:last-child::after {
+    content: "";
+}
+
+#myToast {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1050;
+}
+
+#main {
+    width: 100%; /* Default to 100% */
+    margin: 0 auto; /* Optional: Center align when width is smaller */
+}
+
+@media (min-width: 1700px) {
+    #main {
+        width: 1700px;
+    }
+}

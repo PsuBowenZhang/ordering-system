@@ -1,0 +1,472 @@
+{% extends 'base_index.html' %} {% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-house"
+                                 viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207l-5-5-5 5V13.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7.207Z"/>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/users"> Users </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/categories"> Category </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/products"> Products </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/orders"> Orders </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="/manager/taxes_discounts"> Taxes And Discount </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-filetype-csv" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                    d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM3.517 14.841a1.13 1.13 0 0 0 .401.823c.13.108.289.192.478.252.19.061.411.091.665.091.338 0 .624-.053.859-.158.236-.105.416-.252.539-.44.125-.189.187-.408.187-.656 0-.224-.045-.41-.134-.56a1.001 1.001 0 0 0-.375-.357 2.027 2.027 0 0 0-.566-.21l-.621-.144a.97.97 0 0 1-.404-.176.37.37 0 0 1-.144-.299c0-.156.062-.284.185-.384.125-.101.296-.152.512-.152.143 0 .266.023.37.068a.624.624 0 0 1 .246.181.56.56 0 0 1 .12.258h.75a1.092 1.092 0 0 0-.2-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.551.05-.776.15-.225.099-.4.24-.527.421-.127.182-.19.395-.19.639 0 .201.04.376.122.524.082.149.2.27.352.367.152.095.332.167.539.213l.618.144c.207.049.361.113.463.193a.387.387 0 0 1 .152.326.505.505 0 0 1-.085.29.559.559 0 0 1-.255.193c-.111.047-.249.07-.413.07-.117 0-.223-.013-.32-.04a.838.838 0 0 1-.248-.115.578.578 0 0 1-.255-.384h-.765ZM.806 13.693c0-.248.034-.46.102-.633a.868.868 0 0 1 .302-.399.814.814 0 0 1 .475-.137c.15 0 .283.032.398.097a.7.7 0 0 1 .272.26.85.85 0 0 1 .12.381h.765v-.072a1.33 1.33 0 0 0-.466-.964 1.441 1.441 0 0 0-.489-.272 1.838 1.838 0 0 0-.606-.097c-.356 0-.66.074-.911.223-.25.148-.44.359-.572.632-.13.274-.196.6-.196.979v.498c0 .379.064.704.193.976.131.271.322.48.572.626.25.145.554.217.914.217.293 0 .554-.055.785-.164.23-.11.414-.26.55-.454a1.27 1.27 0 0 0 .226-.674v-.076h-.764a.799.799 0 0 1-.118.363.7.7 0 0 1-.272.25.874.874 0 0 1-.401.087.845.845 0 0 1-.478-.132.833.833 0 0 1-.299-.392 1.699 1.699 0 0 1-.102-.627v-.495Zm8.239 2.238h-.953l-1.338-3.999h.917l.896 3.138h.038l.888-3.138h.879l-1.327 4Z"/>
+            </svg>
+            Export Reports
+          </span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/export_users"> Current Users </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/export_categories"> Current Categories </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/export_products"> Current Products </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/export_orders"> Current Orders </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Users Management</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal"
+                                data-target="#addDiscountModal">
+                            Add Discount
+                        </button>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal"
+                                data-target="#addTaxModal">
+                            Add Tax
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive table-bordered table-hover">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Discount Name</th>
+                        <th>Percent</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for discount in discounts %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ discount.DiscountName }}</td>
+                        <td>{{ discount.DiscountPercent }}%</td>
+                        <td>
+                            <button class="btn btn-sm btn-info edit-discount-btn"
+                                    data-discount-id="{{ discount.DiscountID }}"
+                                    data-discount-name="{{ discount.DiscountName }}"
+                                    data-discount-percent="{{ discount.DiscountPercent }}">
+                                Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-discount-btn"
+                                    data-discount-id="{{ discount.DiscountID }}">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive table-bordered table-hover">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tax Name</th>
+                        <th>Percent</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tax in taxes %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ tax.TaxName }}</td>
+                        <td>{{ tax.TaxPercent }}%</td>
+                        <td>
+                            <button class="btn btn-sm btn-info edit-tax-btn"
+                                    data-tax-id="{{ tax.TaxID }}"
+                                    data-tax-name="{{ tax.TaxName }}"
+                                    data-tax-percent="{{ tax.TaxPercent }}">
+                                Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-tax-btn"
+                                    data-tax-id="{{ tax.TaxID }}">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Add Discount Modal -->
+<div class="modal fade" id="addDiscountModal" tabindex="-1" role="dialog" aria-labelledby="addDiscountModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="addDiscountForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDiscountModalLabel">Add Discount</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Discount Name Input -->
+                    <div class="form-group">
+                        <label for="addDiscountName">Discount Name</label>
+                        <input type="text" class="form-control" id="addDiscountName" name="DiscountName" required>
+                    </div>
+                    <!-- Discount Percent Input -->
+                    <div class="form-group">
+                        <label for="addDiscountPercent">Discount Percent</label>
+                        <input type="number" class="form-control" id="addDiscountPercent" name="DiscountPercent"
+                               min="0" max="100" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <!-- Save Button -->
+                    <button type="submit" class="btn btn-success">Add Discount</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Discount Modal -->
+<div class="modal fade" id="editDiscountModal" tabindex="-1" role="dialog" aria-labelledby="editDiscountModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editDiscountForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDiscountModalLabel">Edit Discount</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hidden Input for Discount ID -->
+                    <input type="hidden" id="editDiscountID" name="DiscountID">
+                    <!-- Discount Name Input -->
+                    <div class="form-group">
+                        <label for="editDiscountName">Discount Name</label>
+                        <input type="text" class="form-control" id="editDiscountName" name="DiscountName" required>
+                    </div>
+                    <!-- Discount Percent Input -->
+                    <div class="form-group">
+                        <label for="editDiscountPercent">Discount Percent</label>
+                        <input type="number" class="form-control" id="editDiscountPercent" name="DiscountPercent"
+                               min="0" max="100" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <!-- Save Changes Button -->
+                    <button type="button" class="btn btn-primary" id="saveDiscountChanges">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Tax Modal -->
+<div class="modal fade" id="addTaxModal" tabindex="-1" role="dialog" aria-labelledby="addTaxModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="addTaxForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaxModalLabel">Add Tax</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tax Name Input -->
+                    <div class="form-group">
+                        <label for="addTaxName">Tax Name</label>
+                        <input type="text" class="form-control" id="addTaxName" name="tax_name" required>
+                    </div>
+                    <!-- Tax Percent Input -->
+                    <div class="form-group">
+                        <label for="addTaxPercent">Tax Percent</label>
+                        <input type="number" class="form-control" id="addTaxPercent" name="tax_percent"
+                               min="0" max="100" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <!-- Save Button -->
+                    <button type="submit" class="btn btn-success">Add Tax</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Tax Modal -->
+<div class="modal fade" id="editTaxModal" tabindex="-1" role="dialog" aria-labelledby="editTaxModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editTaxForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTaxModalLabel">Edit Tax</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hidden Input for Tax ID -->
+                    <input type="hidden" id="editTaxID" name="TaxID">
+                    <!-- Tax Name Input -->
+                    <div class="form-group">
+                        <label for="editTaxName">Tax Name</label>
+                        <input type="text" class="form-control" id="editTaxName" name="TaxName" required>
+                    </div>
+                    <!-- Tax Percent Input -->
+                    <div class="form-group">
+                        <label for="editTaxPercent">Tax Percent</label>
+                        <input type="number" class="form-control" id="editTaxPercent" name="TaxPercent"
+                               min="0" max="100" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <!-- Save Changes Button -->
+                    <button type="button" class="btn btn-primary" id="saveTaxChanges">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Delete discount
+        $(".delete-discount-btn").click(function() {
+            var discountId = $(this).data("discount-id");
+            if (confirm("Are you sure you want to delete this discount?")) {
+                $.ajax({
+                    url: "/manager/discount/" + discountId,
+                    type: "DELETE",
+                    success: function(response) {
+                        showToast(response.message);
+                        setTimeout(function() {
+                            location.reload();
+                        },
+                        3000);
+                    },
+                    error: function() {
+                        showToast("Error deleting discount");
+                        setTimeout(function() {
+                            location.reload();
+                        },
+                        3000);
+                    },
+                });
+            }
+        });
+
+        // Edit discount
+        $(".edit-discount-btn").click(function() {
+            var discountId = $(this).data("discount-id");
+            $("#editDiscountID").val(discountId);
+            $("#editDiscountName").val($(this).data("discount-name"));
+            $("#editDiscountPercent").val($(this).data("discount-percent"));
+            $("#editDiscountModal").modal("show");
+        });
+
+        $("#saveDiscountChanges").click(function() {
+            var data = $("#editDiscountForm").serialize();
+            $.ajax({
+                url: "/manager/discount/"+$("#editDiscountID").val(),
+                type: "PUT",
+                data: data,
+                success: function(response) {
+                    showToast(response.message);
+                    $("#editDiscountModal").modal("hide");
+                    setTimeout(function() {
+                        location.reload();
+                    },
+                    3000);
+                },
+                error: function() {
+                    alert("Error updating discount");
+                },
+            });
+        });
+
+        // Add discount
+        $("#addDiscountForm").submit(function(event) {
+            event.preventDefault();
+            var data = $(this).serialize();
+            $.ajax({
+                url: "/manager/discount",
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    showToast(response.message);
+                    $("#addDiscountModal").modal("hide");
+                    setTimeout(function() {
+                        location.reload();
+                    },
+                    3000);
+                },
+                error: function() {
+                    alert("Error adding discount");
+                },
+            });
+        });
+
+        $('#addTaxForm').submit(function(e) {
+            e.preventDefault();
+            let taxName = $('#addTaxName').val();
+            let taxPercent = $('#addTaxPercent').val();
+
+            $.ajax({
+                url: '/manager/tax',
+                type: 'POST',
+                data: {
+                    TaxName: taxName,
+                    TaxPercent: taxPercent
+                },
+                success: function(response) {
+                    showToast(response.message);
+                    setTimeout(function() {
+                        location.reload();
+                    },
+                    3000);
+                },
+                error: function() {
+                    alert("Error adding tax");
+                }
+            });
+        });
+
+        $('.edit-tax-btn').click(function() {
+            let taxId = $(this).data('tax-id');
+            let taxName = $(this).data('tax-name');
+            let taxPercent = $(this).data('tax-percent');
+
+            $('#editTaxID').val(taxId);
+            $('#editTaxName').val(taxName);
+            $('#editTaxPercent').val(taxPercent);
+
+            $('#editTaxModal').modal('show');
+        });
+
+        $('#saveTaxChanges').click(function() {
+            let taxId = $('#editTaxID').val();
+            let taxName = $('#editTaxName').val();
+            let taxPercent = $('#editTaxPercent').val();
+
+            $.ajax({
+                url: '/manager/tax/' + $('#editTaxID').val(),
+                type: 'PUT',
+                data: {
+                    TaxName: taxName,
+                    TaxPercent: taxPercent
+                },
+                success: function(response) {
+                    showToast(response.message);
+                    setTimeout(function() {
+                        location.reload();
+                    },
+                    3000);
+                },
+                error: function() {
+                    alert("Error edit tax");
+                }
+            });
+        });
+
+        // Delete tax
+        $(".delete-tax-btn").click(function() {
+            var taxID = $(this).data("tax-id");
+            if (confirm("Are you sure you want to delete this tax?")) {
+                $.ajax({
+                    url: "/manager/tax/" + taxID,
+                    type: "DELETE",
+                    success: function(response) {
+                        showToast(response.message);
+                        setTimeout(function() {
+                            location.reload();
+                        },
+                        3000);
+                    },
+                    error: function() {
+                        showToast("Error deleting tax");
+                        setTimeout(function() {
+                            location.reload();
+                        },
+                        3000);
+                    },
+                });
+            }
+        });
+
+    });
+</script>
+{% endblock %}

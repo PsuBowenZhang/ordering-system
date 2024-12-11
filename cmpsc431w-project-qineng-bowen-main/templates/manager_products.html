@@ -1,0 +1,320 @@
+{% extends 'base_index.html' %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207l-5-5-5 5V13.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7.207Z" />
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/users"> Users </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/categories"> Category </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="/manager/products"> Products </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/orders"> Orders </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/taxes_discounts"> Taxes And Discount </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-filetype-csv" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM3.517 14.841a1.13 1.13 0 0 0 .401.823c.13.108.289.192.478.252.19.061.411.091.665.091.338 0 .624-.053.859-.158.236-.105.416-.252.539-.44.125-.189.187-.408.187-.656 0-.224-.045-.41-.134-.56a1.001 1.001 0 0 0-.375-.357 2.027 2.027 0 0 0-.566-.21l-.621-.144a.97.97 0 0 1-.404-.176.37.37 0 0 1-.144-.299c0-.156.062-.284.185-.384.125-.101.296-.152.512-.152.143 0 .266.023.37.068a.624.624 0 0 1 .246.181.56.56 0 0 1 .12.258h.75a1.092 1.092 0 0 0-.2-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.551.05-.776.15-.225.099-.4.24-.527.421-.127.182-.19.395-.19.639 0 .201.04.376.122.524.082.149.2.27.352.367.152.095.332.167.539.213l.618.144c.207.049.361.113.463.193a.387.387 0 0 1 .152.326.505.505 0 0 1-.085.29.559.559 0 0 1-.255.193c-.111.047-.249.07-.413.07-.117 0-.223-.013-.32-.04a.838.838 0 0 1-.248-.115.578.578 0 0 1-.255-.384h-.765ZM.806 13.693c0-.248.034-.46.102-.633a.868.868 0 0 1 .302-.399.814.814 0 0 1 .475-.137c.15 0 .283.032.398.097a.7.7 0 0 1 .272.26.85.85 0 0 1 .12.381h.765v-.072a1.33 1.33 0 0 0-.466-.964 1.441 1.441 0 0 0-.489-.272 1.838 1.838 0 0 0-.606-.097c-.356 0-.66.074-.911.223-.25.148-.44.359-.572.632-.13.274-.196.6-.196.979v.498c0 .379.064.704.193.976.131.271.322.48.572.626.25.145.554.217.914.217.293 0 .554-.055.785-.164.23-.11.414-.26.55-.454a1.27 1.27 0 0 0 .226-.674v-.076h-.764a.799.799 0 0 1-.118.363.7.7 0 0 1-.272.25.874.874 0 0 1-.401.087.845.845 0 0 1-.478-.132.833.833 0 0 1-.299-.392 1.699 1.699 0 0 1-.102-.627v-.495Zm8.239 2.238h-.953l-1.338-3.999h.917l.896 3.138h.038l.888-3.138h.879l-1.327 4Z" />
+            </svg>
+            Export Reports
+          </span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/export_users"> Current Users </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/export_categories"> Current Categories </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/export_products"> Current Products </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/export_orders"> Current Orders </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Products Management</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addModal">
+              Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive table-bordered table-hover">
+        <div class="mb-2 text-right">
+          <span class="h5 mr-2">Tips:</span>
+          <span class="text-danger mr-3">Out of Stock</span>
+          <span class="text-info mr-3">Low Stock</span>
+          <span class="text-primary">High Stock</span>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ItemName</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th>Stock</th>
+              <th>CateName</th>
+              <th>CreateTime</th>
+              <th>Operation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+            <tr data-product-id="{{ product.ItemID }}" class="
+                  {% if product.Stock == 0 %}
+                      text-danger
+                  {% elif product.Stock < 10 %}
+                      text-info
+                  {% elif product.Stock > 100 %}
+                      text-primary
+                  {% endif %}
+              ">
+              <td>{{ loop.index }}</td>
+              <td>{{ product.ItemName }}</td>
+              <td>{{ product.Price }}</td>
+              <td>{{ product.Description[:60] }}{% if product.Description|length > 60 %}...{% endif %}</td>
+              <td>
+                {{ product.Stock }}
+              </td>
+
+              <td>{{ product.CateName }}</td>
+              <td>{{ product.CreateTime }}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-outline-danger delete-btn">Delete</button>
+                <button type="button" class="btn btn-sm btn-outline-info edit-btn" data-toggle="modal"
+                  data-target="#editModal" data-product-id="{{ product.ItemID }}"
+                  data-product-name="{{ product.ItemName }}" data-product-price="{{ product.Price }}"
+                  data-product-description="{{ product.Description }}" data-product-stock="{{ product.Stock }}"
+                  data-product-cate="{{ product.CateID }}">
+                  Edit
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal for Adding Product -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">Add New Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addProductForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="itemName">Item Name</label>
+            <input type="text" class="form-control" id="itemName" name="ItemName" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="Description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" id="price" name="Price" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="productImage">Product Image</label>
+            <input type="file" class="form-control-file" id="productImage" name="ItemImage">
+          </div>
+          <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" class="form-control" id="stock" name="Stock" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="CateID">
+              {% for category in categories %}
+              {% for subcategory in category.subcategories %}
+              <option value="{{ subcategory.CateID }}">{{ subcategory.CateName }}</option>
+              {% endfor %}
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Editing Product -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editProductForm">
+          <input type="hidden" id="editProductID" name="ItemID">
+          <div class="form-group">
+            <label for="editItemName">Item Name</label>
+            <input type="text" class="form-control" id="editItemName" name="ItemName" required>
+          </div>
+          <div class="form-group">
+            <label for="editDescription">Description</label>
+            <textarea class="form-control" id="editDescription" name="Description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="editPrice">Price</label>
+            <input type="number" class="form-control" id="editPrice" name="Price" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="editProductImage">Product Image</label>
+            <input type="file" class="form-control-file" id="editProductImage" name="ItemImage">
+          </div>
+          <div class="form-group">
+            <label for="editStock">Stock</label>
+            <input type="number" class="form-control" id="editStock" name="Stock" required>
+          </div>
+          <div class="form-group">
+            <label for="editCategory">Category</label>
+            <select class="form-control" id="editCategory" name="CateID">
+              {% for category in categories %}
+              {% for subcategory in category.subcategories %}
+              <option value="{{ subcategory.CateID }}">{{ subcategory.CateName }}</option>
+              {% endfor %}
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+  $(document).ready(function () {
+    // Handle delete operation
+    $(".delete-btn").click(function () {
+      let ItemID = $(this).closest('tr').data('product-id');
+      if (confirm("Are you sure you want to delete this product?")) {
+        $.ajax({
+          url: '/manager/products/delete/' + ItemID,
+          type: 'DELETE',
+          success: function (response) {
+            showToast(response.message);
+            setTimeout(function () {
+              location.reload();
+            }, 3000);
+          },
+          error: function () {
+            alert("Error deleting product.");
+          }
+        });
+      }
+    });
+
+    // Populate edit modal
+    $(".edit-btn").click(function () {
+      let product = $(this).data();
+      $("#editProductID").val(product.productId);
+      $("#editItemName").val(product.productName);
+      $("#editPrice").val(product.productPrice);
+      $("#editDescription").val(product.productDescription);
+      $("#editStock").val(product.productStock);
+      $("#editCategory").val(product.productCate);
+    });
+
+    // Submit add form
+    $("#addProductForm").submit(function (event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+
+      $.ajax({
+        url: '/manager/products/add',
+        type: 'POST',
+        data: formData,
+        contentType: false, // Tell jQuery not to set contentType
+        processData: false, // Tell jQuery not to process the data
+        success: function (response) {
+          $('#addModal').modal('hide');
+          showToast(response.message);
+          setTimeout(function () {
+            location.reload();
+          }, 3000);
+        },
+        error: function (err) {
+          showToast("Error adding product");
+        }
+      });
+    });
+
+    // Submit edit form
+    $("#editProductForm").submit(function (event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+
+      $.ajax({
+        url: '/manager/products/edit',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          showToast(response.message);
+          $('#editModal').modal('hide');
+          setTimeout(function () {
+            location.reload();
+          }, 3000);
+        },
+        error: function (err) {
+          showToast("Error updating product");
+        }
+      });
+    });
+
+  });
+</script>
+{% endblock %}

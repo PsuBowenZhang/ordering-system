@@ -1,0 +1,82 @@
+{% extends 'base_index.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Login Form</h1>
+    <form action="/auth/login" method="POST">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="User Email"
+                aria-describedby="emailHelp" required="required">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="User Password" id="password"
+                required="required">
+        </div>
+        <div class="form-group form-check">
+            <input name="rememberMe" type="checkbox" class="form-check-input" id="rememberMe"
+                aria-describedby="rememberHelp">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+            <small id="rememberHelp" class="form-text text-muted">This may lead to your account password being
+                leaked.</small>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-success">Reset</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $(function () {
+        $("#homeNav").removeClass("active");
+        $("#login-btn").removeClass("btn-outline-success");
+        $("#login-btn").addClass("btn-success");
+
+        // load cookie
+        const savedEmail = getCookie('email');
+        const savedPassword = getCookie('password');
+        const rememberMe = getCookie('rememberMe');
+        if (savedEmail) $('#email').val(savedEmail);
+        if (savedPassword) $('#password').val(savedPassword);
+        if (rememberMe) $('#rememberMe').prop("checked", true);
+
+        $("form").on("submit", function (e) {
+            let email = $("#email").val().trim();
+            let password = $("#password").val().trim();
+
+            // validate email
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                showToast("Invalid email format. Please enter a valid email.");
+                $("#email").focus();
+                e.preventDefault();
+                return false;
+            }
+
+            // validate password
+            if (!password || password.length < 6) {
+                showToast("Password must be at least 6 characters long.");
+                $("#password").focus();
+                e.preventDefault();
+                return false;
+            }
+
+            if ($("#rememberMe").is(":checked")) {
+                setCookie('email', $('#email').val(), 7);
+                setCookie('password', $('#password').val(), 7);
+                setCookie('rememberMe', $('#rememberMe').val(), 7);
+            } else {
+                deleteCookie('email');
+                deleteCookie('password');
+                deleteCookie('rememberMe');
+            }
+
+            return true;
+        });
+    });
+</script>
+{% endblock %}
